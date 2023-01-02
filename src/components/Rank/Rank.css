@@ -1,0 +1,18 @@
+.rank {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	margin-top: 1em;
+	font-size: 2em;
+}
+
+.ranking {
+	font-size: 2.125em;
+	border: 1px solid rgba(255,255,255,.35);
+	padding: 7.5px;
+	color: rgb(0 0 0 / 56.125%);
+	backdrop-filter: blur(1px);
+	-webkit-backdrop-filter: blur(1px);
+
+}
