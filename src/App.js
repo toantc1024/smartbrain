@@ -4,12 +4,9 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Rank from './components/Rank/Rank';
 import ParticlesBg from 'particles-bg';
-import Clarifai from 'clarifai';
+import Register from './components/Register/Register';
+import Signin from './components/Signin/Signin';
 import './App.css';
-
-const app = new Clarifai.App({
- apiKey: '4bb8c51e16404816bc379eb9f73c5722'
-});
 
 class App extends Component {
   constructor() {
@@ -17,7 +14,9 @@ class App extends Component {
     this.state = {
       input: '',
       image: '',
-      box: {}
+      box: {},
+      route: 'signin',
+      isSignedIn: false
     }
   }
 
@@ -78,16 +77,33 @@ class App extends Component {
     .catch((error) => {
       console.log("Ooops!");
     })
-
+  }
+  onRouteChange = (route) => {
+    let status = false;
+    if(route === "home") {
+      status = true;
+    }
+    this.setState({route: route, isSignedIn: status});
   }
   render() {
-    return (
+    const {isSignedIn, image, box} = this.state;
+    return (  
       <div className="App">
-        <Navigation />
-        <Rank />
-        <ImageLinkForm onInput={this.onInputChange} onSubmit={this.onSubmit} />
+        <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn} />
         <ParticlesBg color="#ffffff" num={20} type="cobweb" bg={true} />
-        <FaceRecognition box={this.state.box} imageSource={this.state.image} />
+        {
+          this.state.route === 'home' 
+          ? <div>
+              <Rank />
+              <ImageLinkForm onInput={this.onInputChange} onSubmit={this.onSubmit} />
+              <FaceRecognition box={box} imageSource={image} />
+            </div>
+          : (
+              this.state.route === 'signin'
+              ? <Signin onRouteChange={this.onRouteChange} /> 
+              : <Register onRouteChange={this.onRouteChange} />
+            )
+        }
       </div>
     );    
   }
