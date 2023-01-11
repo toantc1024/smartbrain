@@ -2,3 +2,8 @@ article {
 	backdrop-filter: blur(1px);
 	-webkit-backdrop-filter: blur(1px);
 }
+
+.login-error {
+	background: rgba(15, 15, 15, 0.15);
+	padding: 2px;
+}

@@ -18,7 +18,6 @@ class Signin extends Component {
 	onPasswordChange = (event) => {
 		this.setState({signInPassword: event.target.value});
 	}
-
 	onSubmitSignIn = () => {
 		fetch('https://smartbrain-api-kl5c.onrender.com/signin', {
 			method: 'POST',
@@ -35,13 +34,20 @@ class Signin extends Component {
 				password: this.state.signInPassword
 			})
 		  })
-		  	.then(response => response.json())
+		  .then(response => {
+			if (!response.ok) {
+				this.setState({problemSignIn: true});
+			}
+			return response;
+		  })
+		  .then(response => response.json())
 			.then(user => {
 				if (user.id) {
 					this.props.loadUser(user);
 					this.props.onRouteChange('home');
 				}
 			})
+		
 	}
 
 	render() {
@@ -72,6 +78,11 @@ class Signin extends Component {
 							id="password" 
 						/>
 					  </div>
+					  {
+						this.state.problemSignIn === true? 
+						<div className="login-error ph3 pv2 pointer f6 dib">Something went wrong</div>
+						: null
+					  }
 					  {/*<label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox" className="bg-transparent " /> Remember me</label>*/}
 					</fieldset>
 					<div className="">
