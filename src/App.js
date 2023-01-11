@@ -85,36 +85,45 @@ class App extends Component {
     if(this.state.busyLoading) 
       return;
     this.setState({image: this.state.input, busyLoading: true});
-   const raw = JSON.stringify({
-     user_app_id : {
-       user_id: "toantc1024",
-       app_id: "my-first-application"
-     },
-     inputs: [
-       {
-         data: {
-           image: {
-             url: this.state.input
-           },
-         },
-       },
-     ],
-   });
-   fetch('https://smartbrain-api-kl5c.onrender.com/image', {
-    method: 'put',
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      id: this.state.user.id,
-      raw: raw,
-      imageUrl: this.state.input
-    })
-   })
-   .then(response => response.json()) 
-   .then(data => {
-    this.setState(Object.assign(this.state.user, {entries: data.entries}));
-    this.setState({busyLoading: false});
-    this.displayFaceBox(this.calculateFaceLocation(data.result));
-   })
+    fetch('https://smartbrain-api-kl5c.onrender.com/imageUrl', {
+      method: 'PUT',
+      mode: 'cors', 
+      cache: 'no-cache', 
+      credentials: 'same-origin', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow', 
+      referrerPolicy: 'no-referrer', 
+      body: JSON.stringify({
+        imageUrl: this.state.input
+      })
+     })
+     .then(response => response.json())
+     .then(data => {
+      fetch('https://smartbrain-api-kl5c.onrender.com/image', {
+          method: 'PUT',
+          mode: 'cors', 
+          cache: 'no-cache', 
+          credentials: 'same-origin', 
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow', 
+          referrerPolicy: 'no-referrer', 
+          body: JSON.stringify({
+            id: this.state.user.id
+          })
+        })
+        .then(response => response.json()) 
+        .then(result => {
+          this.setState(Object.assign(this.state.user, {entries: result.entries}));
+        })
+        .catch(err => console.log('unable to get entries'));
+      this.setState({busyLoading: false});
+      this.displayFaceBox(this.calculateFaceLocation(data));
+      }
+     )
    .catch((error) => {
     this.setState({busyLoading: false});
     console.log("Ooops!");

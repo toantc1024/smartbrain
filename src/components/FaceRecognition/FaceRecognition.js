@@ -4,11 +4,10 @@ const FaceRecognition = ({imageSource, box}) => {
   let boundingBoxes = null;
   console.log(imageSource);
   if(!(Object.keys(box).length === 0 && box.constructor === Object)){
-    boundingBoxes = box.map(face => (
+    boundingBoxes = box.map((face, index) => (
       <div>
-      <div className='bounding-box' style={{top: face.topRow, right: face.rightCol, bottom: face.bottomRow, left: face.leftCol}}>
+      <div key={index} className='bounding-box' style={{top: face.topRow, right: face.rightCol, bottom: face.bottomRow, left: face.leftCol}}>
       </div>
-    
       </div>
 
     ))
