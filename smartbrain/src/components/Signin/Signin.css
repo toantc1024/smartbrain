@@ -1,0 +1,4 @@
+article {
+	backdrop-filter: blur(1px);
+	-webkit-backdrop-filter: blur(1px);
+}
