@@ -1,0 +1,15 @@
+
+.logo {
+	transition: all .25s linear;
+	background-color: rgba(255,255,255,.05);
+	border: 1px solid rgba(255,255,255,.3);
+	justify-self: flex-start;
+}
+
+.logo:hover {
+	background-color: rgba(255,255,255,.15);
+}
+
+.logo:hover {
+	background-color: rgba(255,255,255,.35);
+}

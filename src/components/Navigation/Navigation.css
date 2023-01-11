@@ -1,0 +1,51 @@
+
+
+* {
+	color: white;
+}
+
+nav {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	align-items: center;
+	border: 1px solid rgba(255,255,255,.15);
+	justify-content: space-between;
+	color: white;
+	background-color: rgba(255,255,255,.05);
+	backdrop-filter: blur(1px);
+	-webkit-backdrop-filter: blur(1px);
+}
+
+nav > div > a {
+  background-color: rgba(255,255,255,.3);
+  font-size: 17px;
+  transition: all .25s linear;
+}
+nav > div > a:hover {
+  background-color: rgba(255,255,255,.4);
+}
+
+nav > div > a:active {
+  background-color: rgba(255,255,255,.5);
+}
+nav > div > a:visit {
+  background-color: rgba(255,255,255,.5);
+  border: 1px solid red;
+}
+
+@media screen and (max-width: 700px) {
+	nav {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+}
+
+nav > div {
+	padding: 25px;
+}
+
+::placeholder {
+	text-align: center;
+	color: rgba(255,255,255,.5);
+}
